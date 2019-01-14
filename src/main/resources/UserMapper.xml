@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.mapper.UserMapper">
+    <select id="findAll" resultType="User">
+        select * from tb_user
+    </select>
+    <select id="findUserById" resultType="User" parameterType="int">
+        select * from tb_user where id=#{id}
+    </select>
+    <insert id="insert" parameterType="User">
+        insert into tb_user(uname,runame,remark) values(#{uname},#{runame},#{remark})
+    </insert>
+    <insert id="insert1" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_user(id,uname,runame,remark) values(null,#{uname},#{runame},#{remark})
+    </insert>
+    <insert id="insert2" parameterType="User">
+        insert into tb_user(uname,runame,remark) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.uname},#{item.runame},#{item.remark})
+        </foreach>
+    </insert>
+    <update id="update" parameterType="User">
+        update tb_user set uname=#{uname},runame=#{runame},remark=#{remark} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from tb_user where id=#{id}
+    </delete>
+</mapper>
